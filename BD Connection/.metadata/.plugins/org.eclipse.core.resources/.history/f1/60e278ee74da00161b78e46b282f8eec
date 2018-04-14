@@ -1,0 +1,118 @@
+package loadPackage;
+
+import java.awt.EventQueue;
+import java.awt.Image;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import controllers.Menu;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+
+public class LoadFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoadFrame frame = new LoadFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoadFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 497, 402);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnPlayers = new JButton("View Players");
+		btnPlayers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+		             LoadPlayers plr = new LoadPlayers();
+		             contentPane.setVisible(false);
+		             plr.setVisible(true);
+				}catch(Exception f){JOptionPane.showMessageDialog(null,f);}
+			}
+		});
+		btnPlayers.setBounds(196, 47, 115, 23);
+		contentPane.add(btnPlayers);
+		
+		JButton btnTeams = new JButton("View Teams");
+		btnTeams.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+		             LoadTeams tms = new LoadTeams();
+		             contentPane.setVisible(false);
+		             tms.setVisible(true);
+				}catch(Exception f){JOptionPane.showMessageDialog(null,f);}
+			}
+		});
+		btnTeams.setBounds(196, 114, 115, 23);
+		contentPane.add(btnTeams);
+		
+		JButton btnNewButton_2 = new JButton("View Groups");
+		btnNewButton_2.setBounds(196, 182, 115, 23);
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton(" View Matches");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+		             LoadMatches mtc = new LoadMatches();
+		             contentPane.setVisible(false);
+		             mtc.setVisible(true);
+				}catch(Exception f){JOptionPane.showMessageDialog(null,f);}
+			}
+		});
+		btnNewButton_3.setBounds(196, 244, 115, 23);
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Back");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+		             Menu frm = new Menu();
+		             contentPane.setVisible(false);
+		             frm.setVisible(true);
+				}catch(Exception f){JOptionPane.showMessageDialog(null,f);}
+			}
+		});
+		btnNewButton_4.setBounds(382, 329, 89, 23);
+		contentPane.add(btnNewButton_4);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(0, 0, 481, 363);
+		contentPane.add(lblNewLabel);
+		Image img1 = new ImageIcon(this.getClass().getResource("/cedra.jpg")).getImage();
+		lblNewLabel.setIcon(new ImageIcon(img1));
+		
+	}
+
+}

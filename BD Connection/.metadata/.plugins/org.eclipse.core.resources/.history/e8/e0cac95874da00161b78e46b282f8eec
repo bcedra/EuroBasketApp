@@ -1,0 +1,98 @@
+package controllers;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
+import javax.swing.JPasswordField;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class SignUpFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JPasswordField passwordField;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SignUpFrame frame = new SignUpFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	Connection connection = null;
+	/**
+	 * Create the frame.
+	 */
+	public SignUpFrame() {
+		connection = (Connection) SQLConnection.DBConnection();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Username");
+		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setBounds(42, 40, 79, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(42, 93, 46, 14);
+		contentPane.add(lblPassword);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(170, 90, 106, 20);
+		contentPane.add(passwordField);
+		
+		textField = new JTextField();
+		textField.setBounds(170, 37, 106, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton = new JButton("ADD");
+		btnNewButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent e) {
+				try{   String query = "insert into Employeeinfo(Username,parola) values (?,?)";
+				PreparedStatement pst = (PreparedStatement) connection.prepareStatement(query);
+				pst.setString(1,textField.getText());
+				pst.setString(2,passwordField.getText());
+				pst.execute();
+				JOptionPane.showMessageDialog(null,"User added!");
+				pst.close();
+					
+				}catch(Exception f){JOptionPane.showMessageDialog(null,f);}
+				
+			}
+		});
+		btnNewButton.setBounds(139, 159, 147, 80);
+		contentPane.add(btnNewButton);
+	}
+}
